@@ -17,6 +17,8 @@ ${DEVICE_NAME}    SonyXP
 ${AUTOMATION_NAME}    selendroid
 ${unmute_location}    //android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ImageView
 ${unmute_location_in_article}    //android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.ScrollView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.ImageView
+${ad_location_in_article}    //android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.ScrollView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout
+${ad_location}    //android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.view.View
 ${AD_Length}    40s
 ${less_than_half_AD_Length}    10s
 ${impression_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_impression.txt
@@ -34,7 +36,7 @@ ${click_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_click.txt
 *** Keywords ***
 Find AD
 	${status}=    Run Keyword And Return Status    Page Should Contain Element    xpath=${unmute_location}
-	:FOR    ${index}    IN RANGE    1    6
+	:FOR    ${index}    IN RANGE    1    10
 	\	${status}=    Run Keyword And Return Status    Page Should Contain Element    xpath=${unmute_location}
 	\	Exit For Loop If    ${status}==True
 	\	Swipe    300    1674    300    288    3000
@@ -43,7 +45,7 @@ Find AD
 
 Find AD In Article
 	${status}=    Run Keyword And Return Status    Page Should Contain Element    xpath=${unmute_location_in_article}
-	:FOR    ${index}    IN RANGE    1    6
+	:FOR    ${index}    IN RANGE    1    10
 	\	${status}=    Run Keyword And Return Status    Page Should Contain Element    xpath=${unmute_location_in_article}
 	\	Exit For Loop If    ${status}==True
 	\	Swipe    300    1674    300    288    3000
@@ -93,7 +95,7 @@ Unmute Than Mute In Article
 	sleep	1s
 	Click Element    xpath=${unmute_location_in_article}
 	sleep    10s
-	Click Element    xpath=//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.LinearLayout/android.widget.ScrollView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout
+	Click Element    xpath=${ad_location_in_article}
 	File Should Exist    vedio_unmute.txt
 	File Should Exist    vedio_mute.txt
 	File Should Exist    vedio_click.txt
@@ -129,7 +131,7 @@ Unmute Than Mute
 	sleep	1s
 	Click Element    xpath=${unmute_location}
 	sleep    10s
-	Click Element    xpath=//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.view.View
+	Click Element    xpath=${ad_location}
 	File Should Exist    vedio_unmute.txt
 	File Should Exist    vedio_mute.txt
 	File Should Exist    vedio_click.txt
@@ -138,5 +140,4 @@ Unmute Than Mute
 	
 
 	
-#	Swipe    300    1674    300    288    3000
 
