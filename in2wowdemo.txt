@@ -10,7 +10,7 @@ Library           OperatingSystem
 ${REMOTE_APPIUM_SERVER}    http://localhost:4723/wd/hub
 ${PLATFORM_NAME}    Android
 ${PLATFORM_VERSION}    7.1.1
-${APP_PATH}    C:\Users\BaBau\Desktop\work\anyCode\in2w\CE-Premium-Sample-release-3.46.3.apk
+#${APP_PATH}    C:\Users\BaBau\Desktop\work\anyCode\in2w\CE-Premium-Sample-release-3.46.3.apk
 ${APP_PACKAGE}     com.intowow.sample
 ${APP_ACTIVITY}    com.intowow.sample.MainActivity
 ${DEVICE_NAME}    SonyXP
@@ -21,15 +21,15 @@ ${ad_location_in_article}    //android.widget.FrameLayout/android.widget.LinearL
 ${ad_location}    //android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.ListView/android.widget.RelativeLayout/android.widget.RelativeLayout/android.widget.RelativeLayout/android.view.View
 ${AD_Length}    40s
 ${less_than_half_AD_Length}    10s
-${impression_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_impression.txt
-${start_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_start.txt
-${1qr_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_1qr.txt
-${2qr_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_2qr.txt
-${3qr_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_3qr.txt
-${complete_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_complete.txt
-${unmute_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_unmute.txt
-${mute_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_mute.txt
-${click_path}    C:\\Users\\BaBau\\Desktop\\work\\anyCode\\in2w\\vedio_click.txt
+${impression_path}    vedio_impression.txt
+${start_path}    vedio_start.txt
+${1qr_path}    vedio_1qr.txt
+${2qr_path}    vedio_2qr.txt
+${3qr_path}    vedio_3qr.txt
+${complete_path}    vedio_complete.txt
+${unmute_path}    vedio_unmute.txt
+${mute_path}    vedio_mute.txt
+${click_path}    vedio_click.txt
 
 
 
@@ -60,32 +60,41 @@ Launch App
 
 *** Test Cases ***
 Watch Whole AD In Article
+	Run    del vedio_*.txt
 	Launch App
 	sleep    20s
 	Click Element    id=com.intowow.sample:id/testA
 	Run    del vedio_*.txt	
 	Find AD In Article
-	Click Element    xpath=${unmute_location_in_article}
 	sleep    ${AD_Length}
+	File Should Exist    vedio_impression.txt
+	File Should Exist    vedio_1qr.txt
+	File Should Exist    vedio_2qr.txt
+	File Should Exist    vedio_3qr.txt
 	File Should Exist    vedio_complete.txt
-	Run    del vedio_*.txt
+	File Should Not Exist    vedio_unmute.txt
+	File Should Not Exist    vedio_mute.txt
+	File Should Not Exist    vedio_click.txt
 	Close All Applications
 	
 Watch Ad Less Than Half In Article
+	Run    del vedio_*.txt
 	Launch App
 	sleep    20s
 	Click Element    id=com.intowow.sample:id/testA	
 	Run    del vedio_*.txt	
 	Find AD In Article
-	Click Element    xpath=${unmute_location_in_article}
 	sleep    ${less_than_half_AD_Length}
+	File Should Exist    vedio_impression.txt
 	File Should Exist    vedio_1qr.txt
 	File Should Not Exist    vedio_mute.txt
 	File Should Not Exist    vedio_complete.txt
-	Run    del vedio_*.txt
+	File Should Not Exist    vedio_unmute.txt
+	File Should Not Exist    vedio_click.txt
 	Close All Applications	
 
 Unmute Than Mute In Article
+	Run    del vedio_*.txt
 	Launch App
 	sleep    20s
 	Click Element    id=com.intowow.sample:id/testA	
@@ -96,35 +105,46 @@ Unmute Than Mute In Article
 	Click Element    xpath=${unmute_location_in_article}
 	sleep    10s
 	Click Element    xpath=${ad_location_in_article}
+	sleep    1s
+	File Should Exist    vedio_impression.txt
 	File Should Exist    vedio_unmute.txt
 	File Should Exist    vedio_mute.txt
 	File Should Exist    vedio_click.txt
-	Run    del vedio_*.txt	
+	File Should Not Exist    vedio_complete.txt
 	Close All Applications
 
 
 Watch Whole Ad
+	Run    del vedio_*.txt
 	Launch App
 	Find AD
-	Click Element    xpath=${unmute_location}
 	sleep    ${AD_Length}
+	File Should Exist    vedio_impression.txt
+	File Should Exist    vedio_1qr.txt
+	File Should Exist    vedio_2qr.txt
+	File Should Exist    vedio_3qr.txt
 	File Should Exist    vedio_complete.txt
-	Run    del vedio_*.txt
+	File Should Not Exist    vedio_unmute.txt
+	File Should Not Exist    vedio_mute.txt
+	File Should Not Exist    vedio_click.txt	
 	Close All Applications
 
 Watch Ad Less Than Half
+	Run    del vedio_*.txt
 	Launch App
 	Find AD
-	Click Element    xpath=${unmute_location}
 	sleep    ${less_than_half_AD_Length}
+	File Should Exist    vedio_impression.txt
 	File Should Exist    vedio_1qr.txt
 	File Should Not Exist    vedio_mute.txt
 	File Should Not Exist    vedio_complete.txt
-	Run    del vedio_*.txt
+	File Should Not Exist    vedio_unmute.txt
+	File Should Not Exist    vedio_click.txt
 	Close All Applications
 
 
 Unmute Than Mute
+	Run    del vedio_*.txt
 	Launch App
 	Find AD
 	Click Element    xpath=${unmute_location}
@@ -132,11 +152,14 @@ Unmute Than Mute
 	Click Element    xpath=${unmute_location}
 	sleep    10s
 	Click Element    xpath=${ad_location}
+	sleep    1s
+	File Should Exist    vedio_impression.txt
 	File Should Exist    vedio_unmute.txt
 	File Should Exist    vedio_mute.txt
 	File Should Exist    vedio_click.txt
-	Run    del vedio_*.txt	
+	File Should Not Exist    vedio_complete.txt
 	Close All Applications
+	Run    del vedio_*.txt	
 	
 
 	
